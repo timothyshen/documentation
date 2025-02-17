@@ -43,17 +43,17 @@ CometBFT is a state machine replication engine which provides consensus and secu
 
 ABCI++ comprises of a set of methods that interact with the Engine API, as outlined below:
 
-### **1. PrepareProposal** (Proposing a New Block)
+### 1. PrepareProposal (Proposing a New Block)
 
 - The CL checks whether a payload is already being generated using `payloadID`.
 - If not, the CL calls `engine_forkchoiceUpdate` to trigger a new payload generation.
 - The CL then calls `engine_getPayload` with `payloadID` to fetch the payload and propose a new block.
 
-### **2. ProcessProposal** (Processing a New Block)
+### 2. ProcessProposal (Processing a New Block)
 - The CL calls `engine_newPayload` to  delivers the new block to the EL.
 - The EL validates payload of the new block, executes transactions deterministically and updates its state. 
 
-### **3. FinalizeBlock** (Finalizing a Decided Block)
+### 3. FinalizeBlock (Finalizing a Decided Block)
 - The CL calls `engine_newPayload` to  delivers the finalized block to the EL.
 - If the block has not yet been incorporated into the EL, the EL validates payload of the new block, executes transactions deterministically and updates its state.
 - Since CometBFT provides instant finality, the CL calls `engine_forkchoiceUpdate` to finalize the block.
